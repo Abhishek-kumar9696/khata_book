@@ -115,6 +115,21 @@ app.get("/edit/:filename", (req, res) => {
   });
 });
 
+
+// Route to delete the entry from 
+app.get("/delete/:filename", (req, res) => {
+    const filePath = path.join(__dirname, "files", req.params.filename);
+  
+    fs.unlink(filePath, (err) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).send("Error deleting file");
+      }
+      res.redirect("/");
+    });
+  });
+
+
 // Route to handle form submission for editing a file
 app.post("/update/:filename", (req, res) => {
   const filePath = path.join(__dirname, "files", req.params.filename);
